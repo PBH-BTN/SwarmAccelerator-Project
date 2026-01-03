@@ -1,0 +1,47 @@
+name: VNC Screenshot Bot
+
+on:
+  schedule:
+    # 每 10 分钟运行一次
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # 允许手动触发调试
+
+jobs:
+  screenshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install VNC client and Python
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip
+          pip3 install vncdotool
+
+      - name: Take Screenshot for G11
+        env:
+          VNC_PASSWORD: ${{ secrets.VNC_PASSWORD }}
+          VNC_SERVER: ${{ secrets.VNC_SERVER }} # 格式为 IP:Display (例如 1.2.3.4:0)
+        run: |
+          # 使用 vncdotool 连接并截图
+          # --password 后面跟密码，capture 后面跟保存的文件名
+          vncdotool -s "$G11_VNC_SERVER" -p "$G11_VNC_PASSWORD" capture g11_screenshot.png
+      - name: Take Screenshot for G12
+        env:
+          VNC_PASSWORD: ${{ secrets.VNC_PASSWORD }}
+          VNC_SERVER: ${{ secrets.VNC_SERVER }} # 格式为 IP:Display (例如 1.2.3.4:0)
+        run: |
+          # 使用 vncdotool 连接并截图
+          # --password 后面跟密码，capture 后面跟保存的文件名
+          vncdotool -s "$G12_VNC_SERVER" -p "$G12_VNC_PASSWORD" capture g12_screenshot.png
+      - name: Commit and Push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          git add g11_screenshot.png
+          git add g12_screenshot.png
+          
+          git commit -m "Update VNC screenshot: $(date)" || exit 0 # 如果没有变化则跳过
+          git push
