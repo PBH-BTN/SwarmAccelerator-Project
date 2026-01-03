@@ -42,8 +42,17 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          git add g11_screenshot.png
-          git add g12_screenshot.png
+          if [ -f g11_screenshot.png ]; then
+            git add g11_screenshot.png
+          else
+            git rm --cached g11_screenshot.png --ignore-unmatch
+          fi
           
+          if [ -f g12_screenshot.png ]; then
+            git add g12_screenshot.png
+          else
+            git rm --cached g12_screenshot.png --ignore-unmatch
+          fi
+
           git commit -m "Update VNC screenshot: $(date)" || exit 0 # 如果没有变化则跳过
           git push
