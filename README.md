@@ -50,6 +50,15 @@ BiglyBT 4.0.0.0 (PBH-BTN Swarm Accelerator/1.0)
 
 如果服务器不支持 BiglyBT，则有时也会使用 qBittorrent 的较新版本。
 
+## 运行状态
+
+自动更新。
+
+| Server 1 | Server 2 |
+| -------- | -------- |
+| ![server1-status](g11_screenshot.png) | ![server2-status](g12_screenshot.png) |
+
+
 ## 速率控制
 
 为了避免带宽耗尽，影响 Tracker 等正常服务，我们设置了上传 38MB/s (~304Mbps)，下载 38MB/s (~304Mbps) 的速率限制。具体可使用的带宽，以实际网络情况为准。
