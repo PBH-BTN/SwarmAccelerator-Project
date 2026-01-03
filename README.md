@@ -39,7 +39,7 @@ PBH-BTN 种群加速计划。
 为了方便识别，种群加速计划的 Client Name 将带有特别标记：
 
 ```
-BiglyBT/a.b.c.d (PBH-BTN Swarm Accelerator/x.y)
+BiglyBT a.b.c.d (PBH-BTN Swarm Accelerator/x.y)
 ```
 
 例如：
@@ -47,3 +47,9 @@ BiglyBT/a.b.c.d (PBH-BTN Swarm Accelerator/x.y)
 ```
 BiglyBT 4.0.0.0 (PBH-BTN Swarm Accelerator/1.0)
 ```
+
+如果服务器不支持 BiglyBT，则有时也会使用 qBittorrent 的较新版本。
+
+## 速率控制
+
+为了避免带宽耗尽，影响 Tracker 等正常服务，我们设置了上传 38MB/s (~304Mbps)，下载 38MB/s (~304Mbps) 的速率限制。具体可使用的带宽，以实际网络情况为准。
