@@ -20,6 +20,7 @@ jobs:
           pip3 install vncdotool
 
       - name: Take Screenshot for G11
+        continue-on-error: true
         env:
           VNC_PASSWORD: ${{ secrets.G11_VNC_PASSWORD }}
           VNC_SERVER: ${{ secrets.G11_VNC_SERVER }} # 格式为 IP:Display (例如 1.2.3.4:0)
@@ -28,6 +29,7 @@ jobs:
           # --password 后面跟密码，capture 后面跟保存的文件名
           vncdotool -s "$VNC_SERVER" -p "$VNC_PASSWORD" capture g11_screenshot.png
       - name: Take Screenshot for G12
+        continue-on-error: true
         env:
           VNC_PASSWORD: ${{ secrets.G12_VNC_PASSWORD }}
           VNC_SERVER: ${{ secrets.G12_VNC_SERVER }} # 格式为 IP:Display (例如 1.2.3.4:0)
