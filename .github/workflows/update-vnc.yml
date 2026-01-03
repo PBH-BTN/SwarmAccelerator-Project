@@ -26,7 +26,7 @@ jobs:
         run: |
           # 使用 vncdotool 连接并截图
           # --password 后面跟密码，capture 后面跟保存的文件名
-          vncdotool -s "$VNC_PASSWORD" -p "$VNC_PASSWORD" capture g11_screenshot.png
+          vncdotool -s "$G11_VNC_SERVER" -p "$VNC_PASSWORD" capture g11_screenshot.png
       - name: Take Screenshot for G12
         env:
           VNC_PASSWORD: ${{ secrets.G12_VNC_PASSWORD }}
@@ -34,7 +34,7 @@ jobs:
         run: |
           # 使用 vncdotool 连接并截图
           # --password 后面跟密码，capture 后面跟保存的文件名
-          vncdotool -s "$VNC_PASSWORD" -p "$VNC_PASSWORD" capture g12_screenshot.png
+          vncdotool -s "$G11_VNC_SERVER" -p "$VNC_PASSWORD" capture g12_screenshot.png
       - name: Commit and Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
