@@ -64,4 +64,4 @@ BiglyBT 4.0.0.0 (PBH-BTN Swarm Accelerator/1.0)
 
 ## 速率控制
 
-为了避免带宽耗尽，影响 Tracker 等正常服务，速率限制为：上传 38MB/s (~300Mbps) 下载 38MB/s (~300Mbps)。
+为了避免带宽耗尽，影响 Tracker 等正常服务，每台服务器的速率限制为：上传 38MB/s (~300Mbps) 下载 38MB/s (~300Mbps)。后续缩减为单一服务器后，限速会适当放宽。
