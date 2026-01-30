@@ -64,6 +64,4 @@ BiglyBT 4.0.0.0 (PBH-BTN Swarm Accelerator/1.0)
 
 自动更新。
 
-| Server |
-| -------- | -------- |
-| ![server2-status](g12_screenshot.png) |
+![server2-status](g12_screenshot.png)
