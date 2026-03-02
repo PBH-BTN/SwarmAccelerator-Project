@@ -59,6 +59,8 @@ BiglyBT 4.0.0.0 (PBH-BTN Swarm Accelerator/1.0)
 
 ## 运行状态
 
-自动更新。
+[点此开始监工](https://swarmaccelerator-vnc.pbh-btn.com/)
+
+下面的图片会定期更新↓
 
 ![server2-status](g12_screenshot.png)
