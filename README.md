@@ -33,6 +33,30 @@ PBH-BTN 种群加速计划。
 为保证服务稳定运行和充分利用带宽资源，我们执行以下速率限制策略：
 
 * 基于策略的滑动窗口限速：每 1 小时最多上传 200GB 数据；每 24 小时最多上传 1.3TB 数据
+* 加速计划按照国家/地区对 Peer 进行分组，中国地区为：大陆、香港、台湾、澳门。当中国地区 Peer 与其它国家/地区争抢带宽时，将优先传输 Peer，其它 Peer 速率将被临时压制。当争抢结束或者有空闲带宽时，将自动重新分配带宽
+* 每个迅雷 Peer 固定分配最大 64kB/s 上传带宽
+
+以下是正在使用的策略规则内容：
+
+```
+enable=yes
+
+net_limit daily total=1.3TB
+net_limit hourly total=300G
+
+peer_set peer_china=CN;HK;TW;MO
+peer_set peer_other=peer_china, inverse=yes
+priority_up 1=peer_china, 2=peer_other, probe=5
+
+peer_set xunlei=all,client=(?i)(xunlei|7\..*|XL00.*),peer_up=64k
+
+daily std_speed_limit from 00:00 to 23:59
+```
+
+std_speed_limit 的配置为：
+
+* 仅做种：上传 40960KB/s
+* 有活动下载时：下载 20480KB/s，上传 31920KB/s。当下载与上传争抢带宽时，保留至少 10240KB/s 的带宽分配给做种任务
 
 ## 识别种群加速计划 Peer
 
