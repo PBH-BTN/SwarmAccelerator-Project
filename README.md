@@ -34,14 +34,15 @@ PBH-BTN 种群加速计划。
 
 为保证服务稳定运行和充分利用带宽资源，我们执行以下速率限制策略：
 
-* 基于策略的滑动窗口限速：每 1 小时最多上传 200GB 数据；每 24 小时最多上传 1.3TB 数据
+* 基于策略的滑动窗口限速：每 1 小时最多上传 300GB 数据；每 24 小时最多上传 1.3TB 数据
    * 未触及滑动窗口限速时，遵从以下限速策略：
       * 仅做种时：上传限速 40960KB/s
       * 有活动下载时：下载 20480KB/s，上传 31920KB/s。当下载与上传争抢带宽时，保留至少 20480KB/s 的带宽分配给做种任务
-* 加速计划按照国家/地区对 Peer 进行分组。当 peer_china 组的 Peer 与 peer_other 组的 Peer 争抢带宽时，将优先传输 peer_china 组，其它组 Peer 速率将被临时压制。当争抢结束或者有空闲带宽时，将自动重新分配带宽
-  * peer_china 为：大陆、香港、台湾、澳门
-  * peer_other 为其它国家/地区
 * 每个迅雷 Peer 固定分配最大 64kB/s 上传带宽，不分国家/地区
+* 按照国家/地区分为 (1) peer_china (含大陆、台湾、香港、澳门) (2) peer_other (世界上的其它国家和地区)，共两个分组
+  * 当上传/下载带宽未能达到限速峰值时，采取以下策略：
+  * 下载时，优先从 peer_other 分组下载数据，peer_chian 补足剩余可用下载带宽
+  * 上传时，优先向 peer_china 分组上传数据，peer_other 补足剩余可用上传带宽
 
 以下是正在使用的策略规则内容：
 
@@ -54,8 +55,8 @@ net_limit hourly total=300G
 peer_set peer_china=CN;HK;TW;MO
 peer_set peer_other=peer_china, inverse=yes
 priority_up 1=peer_china, 2=peer_other, probe=5
-
-peer_set xunlei=all,client=(?i)(xunlei|7\..*|XL00.*),peer_up=64k
+priority_down 1=peer_other, 2=peer_china, probe=5
+peer_set xunlei=all,client=(?i)(xunlei|7\..*|XL00.*), peer_up=64k
 
 daily std_speed_limit from 00:00 to 23:59
 ```
