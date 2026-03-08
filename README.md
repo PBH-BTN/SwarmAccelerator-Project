@@ -66,8 +66,8 @@ net_limit hourly total=300G
 
 peer_set peer_china=CN;HK;TW;MO
 peer_set peer_other=peer_china, inverse=yes
-priority_up 1=peer_china, 2=peer_other, probe=5
-priority_down 1=peer_other, 2=peer_china, probe=5
+#priority_up 1=peer_china, 2=peer_other, probe=5
+#priority_down 1=peer_other, 2=peer_china, probe=5
 peer_set xunlei=all,client=(?i)(xunlei|7\..*|XL00.*), peer_up=64k
 
 daily std_speed_limit from 00:00 to 23:59
