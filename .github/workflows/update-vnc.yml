@@ -5,19 +5,23 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch:
 
-jobs:
+jobs:       
   screenshot:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 0 # 必须获取完整历史
+      - name: BFG Repo-Cleaner Action # 避免仓库的截图无限增长突破天际...
+        uses: RRethy/bfg-repo-cleaner-action@master
+        with:
+          args: --delete-files "*.{png,jpg,jpeg}" 
       - name: Install VNC client and Python
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip
           pip3 install vncdotool
-
       - name: Take Screenshot for G12
         continue-on-error: true
         env:
@@ -43,4 +47,5 @@ jobs:
           fi
 
           git commit -m "Update VNC screenshot: $(date)" || exit 0
-          git push
+          git gc --prune=now --aggressive
+          git push --force
