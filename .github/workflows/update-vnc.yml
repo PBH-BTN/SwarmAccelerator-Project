@@ -20,7 +20,9 @@ jobs:
       - name: BFG
         run: |
           curl -o /tmp/bfg.jar https://repo1.maven.org/maven2/com/madgag/bfg/1.15.0/bfg-1.15.0.jar
-          java -jar /tmp/bfg.jar . --delete-files "*.{png,jpg,jpeg}" 
+          java -jar /tmp/bfg.jar . --delete-files "*.{png,jpg,jpeg}" || exit 0
+          git reflog expire --expire=now --all || exit 0
+          git gc --prune=now --aggressive || exit 0
       - name: Install VNC client and Python
         run: |
           sudo apt-get update
@@ -51,5 +53,4 @@ jobs:
           fi
 
           git commit -m "Update VNC screenshot: $(date)" || exit 0
-          git gc --prune=now --aggressive
           git push --force
