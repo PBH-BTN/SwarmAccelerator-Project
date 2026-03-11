@@ -19,7 +19,7 @@ jobs:
           java-version: "25"
       - name: BFG
         run: |
-          curl -O /tmp/bfg.jar https://repo1.maven.org/maven2/com/madgag/bfg/1.15.0/bfg-1.15.0.jar
+          curl -o /tmp/bfg.jar https://repo1.maven.org/maven2/com/madgag/bfg/1.15.0/bfg-1.15.0.jar
           java -jar /tmp/bfg.jar . --delete-files "*.{png,jpg,jpeg}" 
       - name: Install VNC client and Python
         run: |
